@@ -1,3 +1,39 @@
-<p>
-  heroe works!
-</p>
+<h3>Heroe
+  <small>name...</small>
+  <button [routerLink]="['heroes']" type="button" class="btn btn-outline-danger">Back</button>
+</h3>
+
+<hr>
+
+<div class="row animated fadeIn fast">
+  <div class="col-md-12">
+
+    <form>
+
+      <div class="form-group">
+        <label>Name: </label>
+        <input type="text" name="" class="form-control" placeholder="Name of the heroe" required>
+      </div>
+
+      <div class="form-group">
+        <label>House: </label>
+        <select class="form-control" name="">
+          <option value="Marvel">Marvel</option>
+          <option value="DC">DC</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Bio: </label>
+        <textarea type="text" name="" class="form-control" placeholder="Bio" required></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">Save</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
