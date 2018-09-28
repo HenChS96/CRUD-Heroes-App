@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Heroe } from '../../interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -13,25 +13,69 @@ import { Router } from '@angular/router';
 })
 export class HeroeComponent implements OnInit {
 
-  heroe: Heroe = {
+  private heroe: Heroe = {
     name: '',
     bio: '',
     house: 'Marvel'
   }
 
-  constructor( private _heroeService: HeroesService, private _router:Router ) { }
+  new = false;
+  id: string;
+
+  constructor( private _heroeService: HeroesService, private _router:Router, private _actRoute: ActivatedRoute ) {
+
+    this._actRoute.params.subscribe( parameters => {
+      
+      this.id = parameters['id'];
+
+      if( this.id !== 'new'){
+        this._heroeService.getHeroe(this.id).subscribe( data => this.heroe = data)
+      } 
+
+    })
+
+   }
 
   ngOnInit() {
   }
 
   save(){
-    console.log(this.heroe);
+
+    if (this.id == 'new'){
+      //new save
+      console.log(this.heroe);
 
     this._heroeService.newHeroe(this.heroe).subscribe(data => {
       this._router.navigate(['/heroe', data.name])
     }, error => {
       console.error(error);
     });
+
+
+    }else{
+      //update
+
+    console.log(this.heroe);
+
+    this._heroeService.updateHeroe(this.heroe, this.id).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.error(error);
+    });
+
+    }
+ 
   }
+
+
+  addNew(forma: NgForm){
+
+    forma.reset({
+      house:'Marvel'
+    });// you can put which values wouldnt be deleted
+
+  }
+
+  
 
 }
