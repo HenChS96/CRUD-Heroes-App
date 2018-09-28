@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Heroe } from '../../interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
 
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-heroe',
@@ -17,7 +19,7 @@ export class HeroeComponent implements OnInit {
     house: 'Marvel'
   }
 
-  constructor( private _heroeService: HeroesService ) { }
+  constructor( private _heroeService: HeroesService, private _router:Router ) { }
 
   ngOnInit() {
   }
@@ -26,8 +28,10 @@ export class HeroeComponent implements OnInit {
     console.log(this.heroe);
 
     this._heroeService.newHeroe(this.heroe).subscribe(data => {
-
-    })
+      this._router.navigate(['/heroe', data.name])
+    }, error => {
+      console.error(error);
+    });
   }
 
 }
