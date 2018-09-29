@@ -70,6 +70,8 @@ export class HeroeComponent implements OnInit {
 
   addNew(forma: NgForm){
 
+    this._router.navigate(['/heroe','new'])
+
     forma.reset({
       house:'Marvel'
     });// you can put which values wouldnt be deleted

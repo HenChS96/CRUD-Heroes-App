@@ -11,11 +11,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs';
 
-import 'rxjs/Rx';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +59,11 @@ export class HeroesService {
     
     let url = `${ this.heroeUrl }/${ key$ }.json`;
     return this.http.get( url ).map( res =>  res.json());
+  }
+
+  getHeroes(){
+    
+    return this.http.get( this.heroeUrl ).map( res =>  res.json());
   }
 
 }
