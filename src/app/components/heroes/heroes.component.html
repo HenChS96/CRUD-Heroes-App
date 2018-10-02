@@ -20,21 +20,33 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">House</th>
-                    <th scope="col">Options</th>
+                    <th scope="col" class="text-right">Options</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                 <tr>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
+                 <tr *ngFor = "let key of heroes | keys; let i = index;"><!--el pipe keys sirve para pasar un objeto a un arreglo-->
+                     <td>{{ i + 1 }}</td>
+                     <td>{{ heroes[key].name }}</td>
+                     <td>{{ heroes[key].house }}</td>
+                     <td class="text-right w120">
+                         <button type="button" class="btn btn-outline-success" [routerLink]="['/heroe',key]">Edit</button>
+                         <button (click)="delete(key)" type="button" class="btn btn-outline-danger">Delete</button>
+                    </td>
+                     
                  </tr>
                 </tbody>
 
               </table>
 
+
+              <div class="alert alert-info" role="alert" *ngIf="(heroes | keys).length === 0 && !loading"> 
+                  <strong>There isn't</strong> registries
+              </div>
+
+              <div class="alert alert-warning" role="alert" *ngIf="loading">
+                <strong>Loading</strong> please wait!!
+              </div>
 
         </div>
 
